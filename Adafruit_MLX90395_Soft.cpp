@@ -65,7 +65,6 @@ bool Adafruit_MLX90395_Soft::readData(float *x, float *y, float *z) {
     return false;
   while (!readMeasurement(x, y, z))
     delay(1);
-
   return true;
 }
 
@@ -89,7 +88,6 @@ bool Adafruit_MLX90395_Soft::readMeasurement(float *x, float *y, float *z) {
   }
 
   int16_t xi, yi, zi;
-
 
   // Convert data to uT and float.
   xi = (rx[2] << 8) | rx[3];
@@ -129,7 +127,7 @@ bool Adafruit_MLX90395_Soft::setOSR(mlx90393_osr_t osrval) {
 uint8_t Adafruit_MLX90395_Soft::getGain(void) {
   uint16_t regValue;
   readRegister(MLX90395_REG_0, &regValue);
-  return (regValue >> 4)&0x0F;
+  return (regValue >> 4) & 0x0F;
 }
 
 bool Adafruit_MLX90395_Soft::setGain(uint8_t gainval) {
@@ -184,7 +182,7 @@ bool Adafruit_MLX90395_Soft::readRegister(uint8_t reg, uint16_t *data) {
 
 bool Adafruit_MLX90395_Soft::writeRegister(uint8_t reg, uint16_t data) {
   uint8_t upperBits = data >> 8;
-  uint8_t lowerBits = (data)&0xFF;
+  uint8_t lowerBits = (data) & 0xFF;
   _i2c->i2c_start((_i2c_addr << 1) | I2C_WRITE);
   _i2c->i2c_write(reg << 1);
   _i2c->i2c_write(upperBits);
